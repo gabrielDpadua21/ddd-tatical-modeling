@@ -7,7 +7,7 @@ import { v5 as uuid } from 'uuid'
 export default class OrderService {
   public static placeOrder (customer: Customer, items: OrderItem[]): Order {
     if (items.length === 0) throw new Error('Does not have items')
-    const order = new Order(uuid.toString(), customer.id, items, 1)
+    const order = new Order(uuid.toString(), customer.id, items)
     customer.addRewardPoints(order.total() / 2)
     return order
   }

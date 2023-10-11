@@ -5,7 +5,7 @@ export default class Order {
   private readonly _customerId: string
   private readonly _items: OrderItem[] = []
 
-  constructor (id: string, customerId: string, items: OrderItem[], total: number) {
+  constructor (id: string, customerId: string, items: OrderItem[]) {
     this._id = id
     this._customerId = customerId
     this._items = items
@@ -16,6 +16,18 @@ export default class Order {
     if (this._id.length <= 0) throw new Error('Id is required')
     if (this._customerId.length <= 0) throw new Error('CustomerId is required')
     if (this._items.length <= 0) throw new Error('Does not have items')
+  }
+
+  public get id (): string {
+    return this._id
+  }
+
+  public get customerId (): string {
+    return this._customerId
+  }
+
+  public get items (): OrderItem[] {
+    return this._items
   }
 
   public addItem (item: OrderItem): void {

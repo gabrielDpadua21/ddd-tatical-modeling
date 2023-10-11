@@ -10,6 +10,6 @@ customer.toggleActive()
 // AGGRETATES ORDER
 const item01 = new OrderItem('1', 'name', 'p1', 1, 1)
 const item02 = new OrderItem('2', 'name', 'p2', 2, 1)
-const order = new Order('1', '1', [item01, item02], 1)
+const order = new Order('1', '1', [item01, item02])
 
 console.log(order)
