@@ -20,15 +20,26 @@ export default class OrderRepository implements OrderRepositoryInterface {
   }
 
   async update (id: string, data: Order): Promise<void> {
-    throw new Error('Method not implemented.')
+    await OrderModel.update({
+      customerId: data.customerId,
+      total: data.total(),
+      items: data.items.map(item => ({
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity
+      }))
+    }, { where: { id } })
   }
 
   async delete (id: string): Promise<number> {
-    throw new Error('Method not implemented.')
+    return await OrderModel.destroy({ where: { id } })
   }
 
   async findById (id: string): Promise<Order> {
-    throw new Error('Method not implemented.')
+    const model = await OrderModel.findOne({ where: { id } })
+    if (!model) throw new Error('Order not found')
+    return new Order(model.id, model.customerId, [])
   }
 
   async findByIdWithItems (id: string): Promise<Order> {
@@ -38,6 +49,12 @@ export default class OrderRepository implements OrderRepositoryInterface {
   }
 
   async findAll (): Promise<Order[]> {
-    throw new Error('Method not implemented.')
+    const models = await OrderModel.findAll()
+    const orders: Order[] = []
+    models.forEach(model => {
+      const order = new Order(model.id, model.customerId, [])
+      orders.push(order)
+    })
+    return orders
   }
 }

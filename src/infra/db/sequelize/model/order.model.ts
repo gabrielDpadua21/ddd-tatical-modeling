@@ -1,6 +1,5 @@
-import { PrimaryKey, Table, Column, Model, ForeignKey, BelongsTo, HasMany } from 'sequelize-typescript'
+import { PrimaryKey, Table, Column, Model, ForeignKey, BelongsTo } from 'sequelize-typescript'
 import CustomerModel from './customer.model'
-import OrderItemModel from './order-item.model'
 
 @Table({ tableName: 'tb_order', timestamps: false })
 export default class OrderModel extends Model {
@@ -14,9 +13,6 @@ export default class OrderModel extends Model {
 
   @BelongsTo(() => CustomerModel)
   declare customer: CustomerModel
-
-  @HasMany(() => OrderItemModel)
-  declare items: OrderItemModel[]
 
   @Column({ allowNull: false })
   declare total: number
